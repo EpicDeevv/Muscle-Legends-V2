@@ -320,67 +320,10 @@ TeleportTab:AddButton("Mythical", function()
     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(2251, 5, 1073)
 end)
 
--- View Stats tab
-local ViewStatsTab = Window:AddTab("ViewStats")
 
--- Create dropdown for player selection
-local dropdown = features:AddDropdown("select", function(playerName)
-    -- Find the player object based on the selected username
-    local player = game.Players:FindFirstChild(playerName)
-    
-    if player then
-        -- Get the player's character and their stats
-        local character = player.Character
-        if character then
-            -- Fetch the player's IntValues for Strength, Durability, and Agility
-            local strength = character:FindFirstChild("Strength")
-            local durability = character:FindFirstChild("Durability")
-            local agility = character:FindFirstChild("Agility")
-            
-            -- If the values exist, update the labels with the stats
-            if strength then
-                ViewStatsTab:FindFirstChild("StrengthLabel").Text = "Strength: " .. strength.Value
-            else
-                ViewStatsTab:FindFirstChild("StrengthLabel").Text = "Strength: N/A"
-            end
-            if durability then
-                ViewStatsTab:FindFirstChild("DurabilityLabel").Text = "Durability: " .. durability.Value
-            else
-                ViewStatsTab:FindFirstChild("DurabilityLabel").Text = "Durability: N/A"
-            end
-            if agility then
-                ViewStatsTab:FindFirstChild("AgilityLabel").Text = "Agility: " .. agility.Value
-            else
-                ViewStatsTab:FindFirstChild("AgilityLabel").Text = "Agility: N/A"
-            end
-        end
-    end
-end)
+local ViewStatsTab = Window:AddTab("Players")
 
--- Populate the dropdown with all players in the server
-for _, player in ipairs(game.Players:GetPlayers()) do
-    dropdown:Add(player.Name)
-end
 
--- Add labels to the ViewStatsTab and name them for reference
-local strengthLabel = ViewStatsTab:AddLabel("Strength: N/A")
-strengthLabel.Name = "StrengthLabel"
-
-local durabilityLabel = ViewStatsTab:AddLabel("Durability: N/A")
-durabilityLabel.Name = "DurabilityLabel"
-
-local agilityLabel = ViewStatsTab:AddLabel("Agility: N/A")
-agilityLabel.Name = "AgilityLabel"
-
--- Update the dropdown when new players join the game
-game.Players.PlayerAdded:Connect(function(player)
-    dropdown:Add(player.Name)
-end)
-
--- Remove players from dropdown when they leave the game
-game.Players.PlayerRemoving:Connect(function(player)
-    dropdown:Remove(player.Name)
-end)
 
 local Tab = Window:AddTab("Credit")
 
